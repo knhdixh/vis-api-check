@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "vis-api-check",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-09-19",
+  "workers_dev": true,
+  "preview_urls": false,
+  "routes": [{"pattern": "api.knhdixh.com", "custom_domain": true}],
+  "vars": {"CANONICAL_HOST": "api.knhdixh.com"},
+  "assets": {"directory": "public", "binding": "ASSETS", "run_worker_first": true},
+  "observability": {"enabled": true}
+}

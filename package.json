@@ -1,0 +1,15 @@
+{
+  "name": "vis-api-check",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --port 8787",
+    "test": "node --test test/*.test.js",
+    "deploy": "wrangler deploy",
+    "check": "node --check public/app.js && node --check public/model.js && node --check public/capture.js && node --check public/motion.js && node --check src/worker.js"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

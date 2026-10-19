@@ -1,0 +1,10 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {Duration,appendLog} from '../public/model.js';
+import worker from '../src/worker.js';
+test('duration handles repeated state, live intervals and multiple absences',()=>{const d=new Duration(false,0);d.set(true,100);d.set(true,200);assert.equal(d.value(350),250);d.set(false,400);assert.equal(d.value(1000),300);d.set(true,1000);d.set(false,1200);assert.equal(d.value(1500),500);});
+test('duration includes an initially inactive window',()=>{const d=new Duration(true,100);assert.equal(d.value(200),100);d.set(false,300);assert.equal(d.value(1000),200);});
+test('log retains newest 500 entries in order',()=>{let events=[];for(let i=0;i<510;i++)events=appendLog(events,{i});assert.equal(events.length,500);assert.equal(events[0].i,509);assert.equal(events.at(-1).i,10);});
+test('workers.dev redirect preserves path and query',async()=>{const res=await worker.fetch(new Request('https://vis-api-check.example.workers.dev/guide.html?x=1'),{CANONICAL_HOST:'api.knhdixh.com'});assert.equal(res.status,301);assert.equal(res.headers.get('location'),'https://api.knhdixh.com/guide.html?x=1');});
+test('redirect preserves non-GET methods',async()=>{const res=await worker.fetch(new Request('https://vis-api-check.example.workers.dev/x',{method:'POST'}),{CANONICAL_HOST:'api.knhdixh.com'});assert.equal(res.status,308);});
+test('local health and assets bypass canonical redirect',async()=>{const env={CANONICAL_HOST:'api.knhdixh.com',ASSETS:{fetch:async()=>new Response('asset')}};const health=await worker.fetch(new Request('http://localhost/api/health'),env);assert.equal(health.status,200);assert.equal((await health.json()).ok,true);assert.equal(await (await worker.fetch(new Request('http://localhost/'),env)).text(),'asset');});
