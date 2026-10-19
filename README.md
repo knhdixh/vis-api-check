@@ -43,6 +43,8 @@ Plain HTML/CSS/JavaScript, Cloudflare Workers static assets, `node:test`, Wrangl
 
 ## Deploy
 
+Pushes to `main` auto-deploy to https://api.knhdixh.com via Cloudflare Workers Builds. To deploy by hand:
+
 ```sh
 npm run deploy
 ```

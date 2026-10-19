@@ -1,6 +1,6 @@
 # Deployment
 
-Target: `api.knhdixh.com`. Worker/repository name: `vis-api-check`. The existing IC3 project is separate.
+Target: `api.knhdixh.com` (live). Repository: https://github.com/knhdixh/vis-api-check, auto-deployed from `main` by Workers Builds. Worker/repository name: `vis-api-check`. The existing IC3 project is separate.
 
 Run from this checkout in a terminal with network access:
 
